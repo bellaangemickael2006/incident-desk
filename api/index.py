@@ -1,25 +1,12 @@
 import os
-import sys
 import traceback
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
+# This module-level import must stay here so Vercel's Python builder
+# traces and bundles Django. Do NOT move it into a function or block.
+from config.wsgi import application as _django_app
 
-_django_ready = False
-_init_error = None
-_django_app = None
-_User = None
-_call_command = None
-
-try:
-    import django
-    django.setup()
-    from config.wsgi import application as _django_app
-    from django.core.management import call_command as _call_command
-    from django.contrib.auth.models import User as _User
-    _django_ready = True
-except Exception:
-    _init_error = traceback.format_exc()
+from django.core.management import call_command as _call_command
+from django.contrib.auth.models import User as _User
 
 
 def _run_setup():
@@ -78,7 +65,6 @@ def application(environ, start_response):
     path = environ.get("PATH_INFO", "")
     method = environ.get("REQUEST_METHOD", "")
 
-    # Setup route — works even when Django failed to init (reports the error)
     if path == "/setup/" and method == "POST":
         expected_token = os.environ.get("DJANGO_SETUP_TOKEN", "")
         if not expected_token:
@@ -88,10 +74,6 @@ def application(environ, start_response):
         if provided != expected_token:
             start_response("401 Unauthorized", [("Content-Type", "text/plain")])
             return [b"Invalid token"]
-        if not _django_ready:
-            body = f"Django init failed:\n{_init_error}".encode()
-            start_response("500 Internal Server Error", [("Content-Type", "text/plain")])
-            return [body]
         try:
             results = _run_setup()
             body = "\n".join(results).encode()
@@ -101,10 +83,5 @@ def application(environ, start_response):
             body = traceback.format_exc().encode()
             start_response("500 Internal Server Error", [("Content-Type", "text/plain")])
             return [body]
-
-    if not _django_ready:
-        body = f"Django init failed:\n{_init_error}".encode()
-        start_response("500 Internal Server Error", [("Content-Type", "text/plain")])
-        return [body]
 
     return _django_app(environ, start_response)
