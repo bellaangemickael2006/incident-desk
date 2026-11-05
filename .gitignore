@@ -1,0 +1,22 @@
+.venv/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+*.sqlite3
+staticfiles/
+.coverage
+htmlcov/
+.vercel/
+.DS_Store
+
+*.sqlite3-*
+
+# SAST / audit artefacts — never commit scan results to the repo
+bandit-results.sarif
+pip-audit-results.json
+.secrets.baseline
+report_html.html
+zap-report/
+run_local.ps1
