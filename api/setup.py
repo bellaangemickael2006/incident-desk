@@ -6,21 +6,29 @@ DELETE this file after use.
 """
 import os
 import sys
+import traceback
 
-# Bootstrap Django
+# Ensure project root is on the path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
 
-import django
-django.setup()
+_django_ready = False
+_init_error = None
 
-from django.core.management import call_command
-from django.contrib.auth.models import User
+try:
+    import django
+    django.setup()
+    from django.core.management import call_command
+    from django.contrib.auth.models import User
+    _django_ready = True
+except Exception:
+    _init_error = traceback.format_exc()
 
 
 def _run_setup():
     results = []
 
-    # Run migrations
     try:
         call_command("migrate", "--no-input", verbosity=0)
         results.append("migrations: OK")
@@ -35,7 +43,6 @@ def _run_setup():
         results.append("ERROR: DJANGO_ADMIN_PASSWORD and DJANGO_DEMO_PASSWORD must be set")
         return results
 
-    # Create superuser (admin)
     try:
         if not User.objects.filter(username="admin").exists():
             User.objects.create_superuser(
@@ -51,7 +58,6 @@ def _run_setup():
     except Exception as e:
         results.append(f"superuser: ERROR {e}")
 
-    # Create demo reporter account
     try:
         if not User.objects.filter(username="fabrice.kameni").exists():
             User.objects.create_user(
@@ -73,8 +79,11 @@ def _run_setup():
 
 
 def application(environ, start_response):
-    """WSGI entry point for this setup script."""
-    # Only allow POST to /setup/
+    if not _django_ready:
+        body = f"Django init failed:\n{_init_error}".encode()
+        start_response("500 Internal Server Error", [("Content-Type", "text/plain")])
+        return [body]
+
     path = environ.get("PATH_INFO", "")
     method = environ.get("REQUEST_METHOD", "")
 
@@ -82,25 +91,22 @@ def application(environ, start_response):
         start_response("404 Not Found", [("Content-Type", "text/plain")])
         return [b"Not found"]
 
-    # Token check
     expected_token = os.environ.get("DJANGO_SETUP_TOKEN", "")
     if not expected_token:
         start_response("503 Service Unavailable", [("Content-Type", "text/plain")])
         return [b"Setup disabled"]
 
-    # Read token from header
     provided = environ.get("HTTP_X_SETUP_TOKEN", "")
     if provided != expected_token:
         start_response("401 Unauthorized", [("Content-Type", "text/plain")])
         return [b"Invalid token"]
 
-    # Run setup
     try:
         results = _run_setup()
         body = "\n".join(results).encode()
         start_response("200 OK", [("Content-Type", "text/plain")])
         return [body]
     except Exception as e:
-        body = f"ERROR: {e}".encode()
+        body = f"ERROR: {traceback.format_exc()}".encode()
         start_response("500 Internal Server Error", [("Content-Type", "text/plain")])
         return [body]
