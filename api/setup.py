@@ -15,10 +15,6 @@ django.setup()
 
 from django.core.management import call_command
 from django.contrib.auth.models import User
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
-from config.wsgi import application as _django_app
 
 
 def _run_setup():
