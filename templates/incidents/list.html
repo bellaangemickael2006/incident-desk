@@ -1,4 +1,4 @@
-{% extends 'base.html' %}{% block title %}My incidents · Incident Desk{% endblock %}
+{% extends 'base.html' %}{% block title %}My incidents · Incident Desk · KONAN Bella{% endblock %}
 {% block content %}<div class="section-heading"><div><p class="eyebrow">YOUR PRIVATE WORKSPACE</p><h1>My incidents<span class="heading-dot">.</span></h1><p class="muted">Record what happened. Keep the details clear.</p></div><a class="button-primary" href="{% url 'incidents:create' %}"><span aria-hidden="true">+</span> New incident</a></div>
 <div class="summary-strip"><div><span class="summary-number">{{ paginator.count|stringformat:'02d' }}</span><span class="summary-label">YOUR REPORTS</span></div><p>Only incidents you created appear here.<br><span class="muted">Use synthetic information for this course.</span></p></div>
 <section class="card incident-panel"><div class="panel-heading"><h2>Incident register</h2><span class="small muted">Most recent first</span></div>

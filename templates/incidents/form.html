@@ -1,4 +1,4 @@
-{% extends 'base.html' %}{% block title %}New incident · Incident Desk{% endblock %}
+{% extends 'base.html' %}{% block title %}New incident · Incident Desk · KONAN Bella{% endblock %}
 {% block content %}<a class="back-link" href="{% url 'incidents:list' %}">← My incidents</a><div class="section-heading"><div><p class="eyebrow">CREATE A REPORT</p><h1>New incident<span class="heading-dot">.</span></h1><p class="muted">Start with a clear title and the facts you know.</p></div></div>
 <div class="form-layout"><section class="card form-card"><form method="post">{% csrf_token %}
 {% if form.errors %}<div class="form-alert" role="alert">Please correct the fields below.</div>{% endif %}{{ form.non_field_errors }}
