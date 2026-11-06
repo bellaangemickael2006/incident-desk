@@ -1,9 +1,14 @@
-import traceback as _tb
+# Explicitly import every third-party package at module level so Vercel's
+# static import tracer bundles them. The tracer only follows direct imports
+# in this file; it does NOT follow transitive imports through other modules.
+import django           # noqa: F401
+import dotenv          # noqa: F401
+import dj_database_url  # noqa: F401
+import psycopg         # noqa: F401
+import whitenoise      # noqa: F401
+import sqlparse        # noqa: F401
 
-# This bare import is at module level so Vercel's static tracer bundles all
-# Django/dotenv/psycopg transitive deps even though the real import below
-# sits inside a try-except for error surfacing.
-import config.environment as _ce  # noqa: F401
+import traceback as _tb
 
 _init_error = None
 _wsgi_app = None
