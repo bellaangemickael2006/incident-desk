@@ -5,7 +5,7 @@ class ResponsePolicyMiddleware:
 
     def __call__(self, request):
         response = self.get_response(request)
-        if request.path.startswith("/admin/"):
+        if request.path.startswith("/management-k9b4x2/"):
             # Django admin uses inline scripts and styles — allow 'unsafe-inline'
             # but keep other controls tight.
             response.headers["Content-Security-Policy"] = (
