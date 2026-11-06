@@ -1,18 +1,8 @@
-{% extends 'base.html' %}{% block title %}Update {{ incident.reference }} · Incident Desk{% endblock %}
-{% block content %}
-<a class="back-link" href="{% url 'incidents:detail' incident.pk %}">← {{ incident.reference }}</a>
-<div class="section-heading"><h1>Update {{ incident.reference }}</h1><p class="muted">Analyst/admin update — severity, status and assignment only.</p></div>
-<section class="card" style="max-width:520px">
-  <form method="post">{% csrf_token %}
-    {% for field in form %}
-    <div class="form-group">
-      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-      {{ field }}
-      {% if field.errors %}<p class="error">{{ field.errors }}</p>{% endif %}
-    </div>
-    {% endfor %}
-    <button class="button-primary" type="submit">Save changes</button>
-    <a class="text-link" href="{% url 'incidents:detail' incident.pk %}">Cancel</a>
-  </form>
-</section>
-{% endblock %}
+{% extends 'base.html' %}{% block title %}Update {{ incident.reference }} · Incident Desk · KONAN Bella{% endblock %}
+{% block content %}<a class="back-link" href="{% url 'incidents:detail' incident.pk %}">← {{ incident.reference }}</a>
+<div class="section-heading"><div><p class="eyebrow">ANALYST ACTION</p><h1>Update incident<span class="heading-dot">.</span></h1><p class="muted">{{ incident.reference }}: {{ incident.title }}</p></div></div>
+<div class="form-layout"><section class="card form-card"><form method="post">{% csrf_token %}
+{% if form.errors %}<div class="form-alert" role="alert">Please correct the fields below.</div>{% endif %}
+{% for field in form %}<div class="field-group"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}<p class="help-text">{{ field.help_text }}</p>{% if field.errors %}<div class="field-errors" role="alert">{{ field.errors }}</div>{% endif %}</div>{% endfor %}
+<div class="form-actions"><button class="button-primary" type="submit">Save changes <span aria-hidden="true">→</span></button><a class="button-quiet" href="{% url 'incidents:detail' incident.pk %}">Cancel</a></div></form></section>
+<aside class="guidance"><span class="guide-line"></span><h2>Analyst guidance</h2><p>Update severity, status and analyst assignment. These changes are logged in the audit trail automatically.</p><p class="small muted">The incident reporter's access remains unchanged.</p></aside></div>{% endblock %}

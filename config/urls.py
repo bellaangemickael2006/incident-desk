@@ -8,5 +8,5 @@ urlpatterns = [
     path("accounts/logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("", include("incidents.urls")),
 ]
-admin.site.site_header = "Incident Desk administration"
+admin.site.site_header = "Incident Desk · KONAN Bella"
 admin.site.site_title = "Incident Desk"
