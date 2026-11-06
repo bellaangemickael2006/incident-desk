@@ -5,3 +5,5 @@ ALLOWED_HOSTS = ["testserver", "localhost", "127.0.0.1"]
 DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}}
 # Only the test suite uses fast hashes. Never import these settings in deployment.
 PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
+# Disable axes lockout in tests; client.login() does not pass a request object.
+AXES_ENABLED = False

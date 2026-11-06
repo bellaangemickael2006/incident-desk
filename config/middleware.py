@@ -1,19 +1,30 @@
 class ResponsePolicyMiddleware:
-    """A small, explicit policy for the server-rendered starter."""
+    """Security headers for every response."""
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
         response = self.get_response(request)
-        # The course UI has no inline scripts/styles or third-party assets.
-        # Django admin has its own assets/inline behavior; review its CSP separately.
-        if not request.path.startswith("/admin/"):
+        if request.path.startswith("/admin/"):
+            # Django admin uses inline scripts and styles — allow 'unsafe-inline'
+            # but keep other controls tight.
+            response.headers["Content-Security-Policy"] = (
+                "default-src 'self'; script-src 'self' 'unsafe-inline'; "
+                "style-src 'self' 'unsafe-inline'; img-src 'self' data:; "
+                "object-src 'none'; base-uri 'self'; frame-ancestors 'none'; "
+                "form-action 'self'"
+            )
+        else:
             response.headers["Content-Security-Policy"] = (
                 "default-src 'self'; script-src 'self'; style-src 'self'; "
                 "img-src 'self' data:; object-src 'none'; base-uri 'none'; "
                 "frame-ancestors 'none'; form-action 'self'"
             )
         response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["Referrer-Policy"] = "same-origin"
+        response.headers["Cross-Origin-Opener-Policy"] = "same-origin"
+        response.headers["Cross-Origin-Resource-Policy"] = "same-origin"
         # Never let a shared cache retain private/authentication pages.
         if request.user.is_authenticated or request.path.startswith("/accounts/"):
             response.headers["Cache-Control"] = "no-store, private"

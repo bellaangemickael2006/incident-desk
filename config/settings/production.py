@@ -38,6 +38,6 @@ CSRF_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
 # Only deploy these settings behind a trusted proxy that sets/overwrites this header.
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SECURE_HSTS_SECONDS = 300  # Deliberately short initial rollout policy.
-SECURE_HSTS_INCLUDE_SUBDOMAINS = False
-SECURE_HSTS_PRELOAD = False
+SECURE_HSTS_SECONDS = 2592000  # 30 days — firm but reversible rollout policy.
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = False  # Enable only after 1-year HSTS is confirmed stable.
