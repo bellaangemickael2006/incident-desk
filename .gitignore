@@ -5,7 +5,6 @@ __pycache__/
 .env.*
 !.env.example
 *.sqlite3
-staticfiles/
 .coverage
 htmlcov/
 .vercel/
