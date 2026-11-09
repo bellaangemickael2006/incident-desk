@@ -1,0 +1,6 @@
+{% extends 'base.html' %}{% block title %}Delete {{ incident.reference }} · Incident Desk · KONAN Bella{% endblock %}
+{% block content %}<a class="back-link" href="{% url 'incidents:detail' incident.pk %}">← Back to {{ incident.reference }}</a>
+<div class="detail-heading"><p class="eyebrow" style="color:#c0392b">ADMIN ACTION — IRREVERSIBLE</p><h1>Delete incident?</h1></div>
+<div class="detail-layout"><article class="card detail-card"><h2>{{ incident.reference }}: {{ incident.title }}</h2><p class="lead">This will permanently delete the incident and all its comments. This action cannot be undone.</p>
+<div class="form-actions"><form method="post">{% csrf_token %}<button class="button-primary" type="submit" style="background:#c0392b;border-color:#c0392b">Yes, delete permanently</button></form>
+<a class="button-quiet" href="{% url 'incidents:detail' incident.pk %}">Cancel</a></div></article></div>{% endblock %}

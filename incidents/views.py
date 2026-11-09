@@ -1,8 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.urls import reverse
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
-from django.views.generic.edit import FormMixin
+from django.shortcuts import redirect
+from django.urls import reverse, reverse_lazy
+from django.views.generic import CreateView, DetailView, ListView, TemplateView, UpdateView
+from django.views.generic.edit import DeleteView, FormMixin
 
 from .forms import AnalystIncidentForm, CommentForm, IncidentForm
 from .models import AuditEvent, Comment, Incident
@@ -10,6 +11,15 @@ from .models import AuditEvent, Comment, Incident
 
 def _is_analyst_or_admin(user):
     return user.groups.filter(name__in=["analyst", "admin"]).exists() or user.is_staff
+
+
+class HomeView(TemplateView):
+    template_name = "home.html"
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect("incidents:list")
+        return super().get(request, *args, **kwargs)
 
 
 class OwnedIncidentsMixin(LoginRequiredMixin):
@@ -85,6 +95,30 @@ class IncidentCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse("incidents:detail", kwargs={"pk": self.object.pk})
+
+
+class IncidentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    """Admins (is_staff) can permanently delete an incident."""
+    model = Incident
+    template_name = "incidents/confirm_delete.html"
+    success_url = reverse_lazy("incidents:list")
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def get_queryset(self):
+        return Incident.objects.all()
+
+    def form_valid(self, form):
+        incident_ref = str(self.object)
+        AuditEvent.objects.create(
+            incident=self.object,
+            actor=self.request.user,
+            verb="deleted_incident",
+            detail=f"Deleted: {incident_ref}",
+        )
+        messages.success(self.request, f"{incident_ref} has been deleted.")
+        return super().form_valid(form)
 
 
 class IncidentAnalystUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):

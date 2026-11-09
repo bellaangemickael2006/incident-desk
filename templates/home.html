@@ -1,0 +1,35 @@
+{% extends 'base.html' %}{% block title %}KONAN Bella Ange Mikael · Incident Desk{% endblock %}
+{% block content %}<div class="login-layout"><section class="login-intro"><p class="eyebrow">APPLICATION SECURITY · LICENCE 2 · UJA</p>
+<h1>KONAN Bella<br>Ange Mikael<span class="heading-dot">.</span></h1>
+<p class="lead">Étudiant en Licence 2 Informatique. Passionné par la cybersécurité, le développement web et les bonnes pratiques de sécurité applicative.</p>
+<div class="intro-note"><span class="note-number">📧</span><p><a href="mailto:bellaangemickael2006@gmail.com" class="text-link">bellaangemickael2006@gmail.com</a></p></div></section>
+<section class="card" style="max-width:520px"><p class="eyebrow">CV · CURRICULUM VITÆ</p>
+<h2>Profil</h2>
+<p class="muted">KONAN BELLA ANGE MIKAEL MARIE TRÉSOR — Étudiant en informatique, Université Jean Artaud (UJA), Licence 2.</p>
+
+<h2 style="margin-top:1.5rem">Compétences techniques</h2>
+<div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem">
+<span class="reference">Python</span><span class="reference">Django</span><span class="reference">Java</span><span class="reference">C#</span><span class="reference">JavaScript</span><span class="reference">HTML / CSS</span><span class="reference">PostgreSQL</span><span class="reference">Docker</span><span class="reference">Git / GitHub</span><span class="reference">CI/CD</span><span class="reference">Linux</span><span class="reference">Vercel</span>
+</div>
+
+<h2 style="margin-top:1.5rem">Projets</h2>
+<dl style="margin-top:.75rem">
+<dt style="font-weight:600">Incident Desk</dt>
+<dd class="muted" style="margin-left:0;margin-bottom:.75rem">Application web sécurisée de gestion d'incidents de cybersécurité. Django 5, PostgreSQL, déploiement Vercel + Neon, CI/CD GitHub Actions, gestion des rôles (admin / utilisateur).</dd>
+<dt style="font-weight:600">BloodConnect CI</dt>
+<dd class="muted" style="margin-left:0;margin-bottom:.75rem">Plateforme de mise en relation donneurs de sang / hôpitaux. Pipeline d'intégration continue, tests automatisés.</dd>
+<dt style="font-weight:600">AK World / POSIGES</dt>
+<dd class="muted" style="margin-left:0">Application de gestion intégrée. Conception et développement full-stack.</dd>
+</dl>
+
+<h2 style="margin-top:1.5rem">Formation</h2>
+<dl style="margin-top:.75rem">
+<dt style="font-weight:600">Licence 2 Informatique</dt>
+<dd class="muted" style="margin-left:0">Université Jean Artaud (UJA) — en cours</dd>
+</dl>
+
+<div style="margin-top:2rem;padding-top:1rem;border-top:1px solid var(--color-border,#e5e7eb)">
+<p class="small muted">Incident Desk est un projet de cours — toutes les données sont synthétiques.</p>
+<a class="button-primary" href="{% url 'login' %}">Accéder à l'application <span aria-hidden="true">→</span></a>
+</div>
+</section></div>{% endblock %}
