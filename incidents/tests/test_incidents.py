@@ -107,9 +107,9 @@ class IncidentSecurityTests(TestCase):
 
     def test_normal_user_cannot_enter_admin(self):
         self.client.force_login(self.alice)
-        response = self.client.get("/admin/")
+        response = self.client.get("/management-k9b4x2/")
         self.assertEqual(response.status_code, 302)
-        self.assertIn("/admin/login/", response.headers["Location"])
+        self.assertIn("/management-k9b4x2/login/", response.headers["Location"])
 
     @override_settings(DEBUG=True)
     def test_seed_is_idempotent_and_creates_no_accounts(self):
@@ -136,6 +136,7 @@ class SessionTests(TestCase):
         self.assertContains(response, "Check your username and password.")
         self.assertNotIn("_auth_user_id", self.client.session)
 
+    @override_settings(AUTHENTICATION_BACKENDS=["django.contrib.auth.backends.ModelBackend"])
     def test_login_rotates_existing_session_key(self):
         session = self.client.session
         session["anonymous_note"] = "synthetic"

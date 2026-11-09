@@ -1,7 +1,10 @@
 import os
 import secrets
 import dj_database_url
+from dotenv import load_dotenv
 from .base import *
+
+load_dotenv()
 
 DEBUG = True
 # A temporary local key is acceptable; set a stable private key in .env to preserve local sessions.
