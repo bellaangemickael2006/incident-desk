@@ -40,14 +40,23 @@
 
 /* PROJECTS */
 .cv-projects{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.cv-card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:24px;transition:box-shadow .2s,transform .15s}
+.cv-card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:24px;transition:box-shadow .2s,transform .15s;display:flex;flex-direction:column}
 .cv-card:hover{box-shadow:0 8px 32px rgba(25,62,56,.12);transform:translateY(-2px)}
-.cv-card-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
-.cv-card-icon{font-size:28px;line-height:1;flex-shrink:0;margin-top:2px}
-.cv-card-title{font-size:16px;font-weight:650;margin:0 0 6px;letter-spacing:-.3px}
-.cv-card-desc{font-size:13px;color:var(--muted);line-height:1.75;margin:0}
-.cv-card-link{margin-left:auto;display:grid;place-items:center;width:34px;height:34px;background:var(--dark);color:var(--accent);border-radius:9px;font-size:16px;text-decoration:none;flex-shrink:0;transition:background .15s}
+.cv-card-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+.cv-card-icon-wrap{display:grid;place-items:center;width:40px;height:40px;border-radius:10px;flex-shrink:0}
+.cv-card-icon-wrap svg{width:20px;height:20px}
+.cv-card-icon-sec{background:#e8f0e8;color:#1f4a3c}
+.cv-card-icon-med{background:#fce8e8;color:#8b2020}
+.cv-card-icon-biz{background:#e8f4fc;color:#1a4a6e}
+.cv-card-title-wrap{flex:1;min-width:0}
+.cv-card-title{font-size:15px;font-weight:650;margin:0 0 5px;letter-spacing:-.3px}
+.cv-card-status{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.5px;padding:2px 8px;border-radius:4px;background:#e8ede4;color:var(--muted)}
+.cv-card-status-live{background:#d4e8da;color:#1f4a3c}
+.cv-card-desc{font-size:13px;color:var(--muted);line-height:1.75;margin:0 0 12px;flex:1}
+.cv-card-link{display:grid;place-items:center;width:32px;height:32px;background:var(--dark);color:var(--accent);border-radius:8px;text-decoration:none;flex-shrink:0;transition:background .15s}
+.cv-card-link svg{width:14px;height:14px}
 .cv-card-link:hover{background:#2a5a50}
+.cv-btn-icon{width:14px;height:14px;flex-shrink:0}
 
 /* BOTTOM GRID */
 .cv-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}

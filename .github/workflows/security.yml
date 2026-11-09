@@ -123,7 +123,7 @@ jobs:
           python manage.py runserver 127.0.0.1:8000 &
           sleep 5
           curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8000/accounts/login/ | grep 200
-      - name: ZAP baseline scan (scope: incident-desk only)
+      - name: "ZAP baseline scan (scope: incident-desk only)"
         uses: zaproxy/action-baseline@v0.14.0
         with:
           target: 'http://127.0.0.1:8000'
