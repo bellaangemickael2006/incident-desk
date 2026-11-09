@@ -1,35 +1,144 @@
-{% extends 'base.html' %}{% block title %}KONAN Bella Ange Mikael · Incident Desk{% endblock %}
-{% block content %}<div class="login-layout"><section class="login-intro"><p class="eyebrow">APPLICATION SECURITY · LICENCE 2 · UJA</p>
-<h1>KONAN Bella<br>Ange Mikael<span class="heading-dot">.</span></h1>
-<p class="lead">Étudiant en Licence 2 Informatique. Passionné par la cybersécurité, le développement web et les bonnes pratiques de sécurité applicative.</p>
-<div class="intro-note"><span class="note-number">📧</span><p><a href="mailto:bellaangemickael2006@gmail.com" class="text-link">bellaangemickael2006@gmail.com</a></p></div></section>
-<section class="card" style="max-width:520px"><p class="eyebrow">CV · CURRICULUM VITÆ</p>
-<h2>Profil</h2>
-<p class="muted">KONAN BELLA ANGE MIKAEL MARIE TRÉSOR — Étudiant en informatique, Université Jean Artaud (UJA), Licence 2.</p>
+{% load static %}{% extends 'base.html' %}
+{% block title %}KONAN Bella Ange Mikael — Développeur Full-Stack{% endblock %}
+{% block content %}
 
-<h2 style="margin-top:1.5rem">Compétences techniques</h2>
-<div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem">
-<span class="reference">Python</span><span class="reference">Django</span><span class="reference">Java</span><span class="reference">C#</span><span class="reference">JavaScript</span><span class="reference">HTML / CSS</span><span class="reference">PostgreSQL</span><span class="reference">Docker</span><span class="reference">Git / GitHub</span><span class="reference">CI/CD</span><span class="reference">Linux</span><span class="reference">Vercel</span>
+<div class="cv-wrap">
+
+  <!-- ═══ HERO ═══ -->
+  <section class="cv-hero">
+    <div class="cv-hero-text">
+      <p class="cv-eyebrow">GÉNIE INFORMATIQUE · LICENCE 2 · UJA ABIDJAN</p>
+      <h1 class="cv-name">KONAN<br><span class="cv-name-accent">Bella Ange</span><br><span class="cv-name-sub">Mikael Marie Trésor</span></h1>
+      <p class="cv-role">Développeur Full-Stack <span class="cv-sep">·</span> Cybersécurité applicative</p>
+      <p class="cv-bio">Passionné par la construction de logiciels sécurisés, robustes et bien conçus. Je recherche un <strong>stage en développement logiciel</strong> pour contribuer à des projets réels et approfondir mon expertise.</p>
+      <div class="cv-contacts">
+        <a href="mailto:bellaangemickael2006@gmail.com" class="cv-btn">✉ bellaangemickael2006@gmail.com</a>
+        <a href="tel:+22507775853 67" class="cv-btn">☏ +225 07 77 58 53 67</a>
+        <a href="https://github.com/bellaangemickael2006" class="cv-btn" target="_blank" rel="noopener">⌥ GitHub</a>
+      </div>
+    </div>
+    <div class="cv-hero-photo">
+      <img src="{% static 'img/bella-konan.webp' %}" alt="KONAN Bella Ange Mikael" class="cv-photo" width="300" height="300">
+      <div class="cv-photo-bg"></div>
+    </div>
+  </section>
+
+  <!-- ═══ SKILLS ═══ -->
+  <section class="cv-section">
+    <h2 class="cv-section-h">Compétences techniques</h2>
+    <div class="cv-skills-grid">
+      <div class="cv-skill-col">
+        <h3 class="cv-skill-cat">Langages</h3>
+        <div class="cv-tags">
+          <span class="cvt cvt-hi">Python</span>
+          <span class="cvt cvt-hi">Java</span>
+          <span class="cvt">C#</span>
+          <span class="cvt cvt-hi">JavaScript</span>
+          <span class="cvt">HTML</span>
+          <span class="cvt">CSS</span>
+          <span class="cvt cvt-hi">SQL</span>
+        </div>
+      </div>
+      <div class="cv-skill-col">
+        <h3 class="cv-skill-cat">Frameworks & Outils</h3>
+        <div class="cv-tags">
+          <span class="cvt cvt-hi">Django</span>
+          <span class="cvt cvt-hi">React</span>
+          <span class="cvt">Next.js</span>
+          <span class="cvt">Flask</span>
+          <span class="cvt cvt-hi">PostgreSQL</span>
+          <span class="cvt">Supabase · Neon</span>
+          <span class="cvt">Docker</span>
+          <span class="cvt cvt-hi">Git / GitHub</span>
+        </div>
+      </div>
+      <div class="cv-skill-col">
+        <h3 class="cv-skill-cat">Spécialités</h3>
+        <div class="cv-tags">
+          <span class="cvt cvt-accent">Cybersécurité</span>
+          <span class="cvt cvt-accent">CI/CD</span>
+          <span class="cvt cvt-accent">Vercel</span>
+          <span class="cvt cvt-accent">Linux</span>
+          <span class="cvt cvt-accent">REST API</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROJECTS ═══ -->
+  <section class="cv-section cv-alt">
+    <h2 class="cv-section-h">Projets réalisés</h2>
+    <div class="cv-projects">
+
+      <article class="cv-card">
+        <div class="cv-card-top">
+          <span class="cv-card-icon" aria-hidden="true">🔒</span>
+          <div>
+            <h3 class="cv-card-title">Incident Desk</h3>
+            <span class="cvt cvt-hi" style="font-size:10px">Déployé · En ligne</span>
+          </div>
+          <a href="https://incident-desk-one.vercel.app" class="cv-card-link" target="_blank" rel="noopener" aria-label="Voir Incident Desk">↗</a>
+        </div>
+        <p class="cv-card-desc">Application web sécurisée de gestion d'incidents de cybersécurité. Authentification par rôle (admin / utilisateur), audit trail, déploiement cloud complet.</p>
+        <div class="cv-tags" style="margin-top:.6rem">
+          <span class="cvt">Django 5</span><span class="cvt">PostgreSQL</span><span class="cvt">Vercel</span><span class="cvt">CI/CD</span><span class="cvt">GitHub Actions</span>
+        </div>
+      </article>
+
+      <article class="cv-card">
+        <div class="cv-card-top">
+          <span class="cv-card-icon" aria-hidden="true">🩸</span>
+          <div>
+            <h3 class="cv-card-title">BloodConnect CI</h3>
+            <span class="cvt" style="font-size:10px">Personnel</span>
+          </div>
+        </div>
+        <p class="cv-card-desc">Plateforme de mise en relation entre donneurs de sang et hôpitaux. Pipeline d'intégration continue, tests automatisés et déploiement continu.</p>
+        <div class="cv-tags" style="margin-top:.6rem">
+          <span class="cvt">Python</span><span class="cvt">CI/CD</span><span class="cvt">Tests automatisés</span>
+        </div>
+      </article>
+
+      <article class="cv-card">
+        <div class="cv-card-top">
+          <span class="cv-card-icon" aria-hidden="true">🌐</span>
+          <div>
+            <h3 class="cv-card-title">AK World / POSIGES</h3>
+            <span class="cvt" style="font-size:10px">Personnel</span>
+          </div>
+        </div>
+        <p class="cv-card-desc">Application de gestion intégrée — conception, développement et déploiement d'une solution full-stack de gestion complète.</p>
+        <div class="cv-tags" style="margin-top:.6rem">
+          <span class="cvt">Full-Stack</span><span class="cvt">Base de données</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ═══ FORMATION + OBJECTIF ═══ -->
+  <section class="cv-section">
+    <div class="cv-bottom-grid">
+      <div>
+        <h2 class="cv-section-h">Formation</h2>
+        <div class="cv-edu">
+          <div class="cv-edu-year">2024 — En cours</div>
+          <div class="cv-edu-body">
+            <strong>Licence 2 — Génie Informatique</strong>
+            <p>Spécialité Systèmes Informatiques et Logiciels</p>
+            <p class="cv-edu-school">Université Jésuite d'Abidjan (UJA)</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 class="cv-section-h">Objectif professionnel</h2>
+        <div class="cv-objective-box">
+          <p>Je recherche un <strong>stage en développement logiciel</strong> pour mettre en pratique mes compétences, contribuer à des projets concrets et approfondir mon expertise en cybersécurité applicative.</p>
+          <a href="mailto:bellaangemickael2006@gmail.com" class="cv-cta-btn">Me contacter pour un stage →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </div>
-
-<h2 style="margin-top:1.5rem">Projets</h2>
-<dl style="margin-top:.75rem">
-<dt style="font-weight:600">Incident Desk</dt>
-<dd class="muted" style="margin-left:0;margin-bottom:.75rem">Application web sécurisée de gestion d'incidents de cybersécurité. Django 5, PostgreSQL, déploiement Vercel + Neon, CI/CD GitHub Actions, gestion des rôles (admin / utilisateur).</dd>
-<dt style="font-weight:600">BloodConnect CI</dt>
-<dd class="muted" style="margin-left:0;margin-bottom:.75rem">Plateforme de mise en relation donneurs de sang / hôpitaux. Pipeline d'intégration continue, tests automatisés.</dd>
-<dt style="font-weight:600">AK World / POSIGES</dt>
-<dd class="muted" style="margin-left:0">Application de gestion intégrée. Conception et développement full-stack.</dd>
-</dl>
-
-<h2 style="margin-top:1.5rem">Formation</h2>
-<dl style="margin-top:.75rem">
-<dt style="font-weight:600">Licence 2 Informatique</dt>
-<dd class="muted" style="margin-left:0">Université Jean Artaud (UJA) — en cours</dd>
-</dl>
-
-<div style="margin-top:2rem;padding-top:1rem;border-top:1px solid var(--color-border,#e5e7eb)">
-<p class="small muted">Incident Desk est un projet de cours — toutes les données sont synthétiques.</p>
-<a class="button-primary" href="{% url 'login' %}">Accéder à l'application <span aria-hidden="true">→</span></a>
-</div>
-</section></div>{% endblock %}
+{% endblock %}
